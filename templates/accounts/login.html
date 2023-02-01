@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}ログイン{% endblock%}
+{% block content %}
+
+{% if message %}
+<div class="messages alert alert-danger" role="alert">
+    {{message}}
+</div>
+{% endif %}
+
+<div class="card mb-3 mx-auto shadow" style="width: 480px; height: auto;" >
+  <div class="card-header">
+      <h1>ログイン</h1>
+  </div>
+  <form action="{% url 'login'%}" method="post">
+    {% csrf_token %}
+    <ul class="list-group">
+      <li class="list-group-item">{% if form.errors %}{{ form.non_field_errors }}{% endif %}</li>
+      <label class="list-group-item">{{ form.username.label }}:</label>
+      <li class="list-group-item">{{ form.username }}</li>
+      <label class="list-group-item">{{ form.password.label }}:</label>
+      <li class="list-group-item">{{ form.password }}</li>
+    </ul>
+    <div class="mx-5 text-right">
+      <p><input type="hidden" name="next" value="{{next}}" /></p>
+      <p><input type="submit" class="btn btn-primary" value="ログイン" /></p>
+    </div>
+  </form>
+  <div class="mx-3">
+      <p><a href="{% url 'signup'%}">新規登録はこちら>></a></p>
+  </div>
+</div>
+
+<div class="text-center">
+    <a href="{% url 'social:begin' 'google-oauth2' %}">
+    <img
+      src="{% static 'admin/img/btn_google_signin_dark_normal_web.png' %}"
+      alt="no"
+    />
+  </a>
+</div>
+
+{% endblock %}

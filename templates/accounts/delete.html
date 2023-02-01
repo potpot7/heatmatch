@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}退会{% endblock %}
+    <h1>ユーザ退会</h1>
+    {% block content %}
+    <div class="text-center m-5">
+        <p>退会しますか？</p>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input class="btn btn-dark" type="submit" value="退会" name="delete">
+        </form>
+    </div>
+    
+    <div class="text-center m-5">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input class="btn btn-success" type="submit" value="思いとどまる" name="cancel">
+        </form>
+    </div>
+    {% endblock %}
