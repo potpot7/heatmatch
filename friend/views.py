@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import TemplateView,ListView,CreateView
+from django.urls import reverse_lazy,reverse
+from django.views.generic import TemplateView,ListView,CreateView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Prefetch
 from .models import Friend,Room,Message,Group,Posts
-from .forms import GroupForm,PostsForm
+from .forms import GroupForm,PostsForm,GroupNameForm
 from accounts.models import CustomUser,Profile
 
 class FriendsView(LoginRequiredMixin, ListView):
@@ -176,4 +176,18 @@ class PostsView(LoginRequiredMixin,ListView):
             form = PostsForm(request.POST,request.FILES)
             if form.is_valid():
                 form.save()
+        return render(request,self.template_name,context)
+    
+# グループ名変更
+class GroupNameUpdateView(LoginRequiredMixin,UpdateView):
+    template_name = 'friend/groupnameupdate.html'
+    model = Group
+    form_class = GroupNameForm
+    
+    def get_success_url(self):
+        return reverse("groupnameupdate", kwargs={"pk":self.object.pk})
+    
+    def post(self, request, *args, **kwargs):
+        context = {}
+        context['message'] = "変更しました！"
         return render(request,self.template_name,context)

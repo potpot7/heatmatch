@@ -11,7 +11,7 @@
             <th style="width: 20%;">グループ名</th>
             <th style="width: 8%;"></th>
             <th style="width: 8%;"></th>
-            <th style="width: 54%;"></th>
+            <th style="width: 54%;">グループ名変更</th>
         </tr>
 
     {% for g in group %}
@@ -26,7 +26,7 @@
         <td class="font-weight-bold"><a href="{% url 'message_group' g.room.id  %}">{{g.name}}</a></td>
         <td></td>
         <td></td>
-        <td></td>
+        <td><a href="{% url 'groupnameupdate' g.id %}">グループ名変更はこちら</a></td>
     </tr>
     {% endfor %}
 </table>

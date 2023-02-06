@@ -33,6 +33,16 @@ class GroupForm(forms.ModelForm):
             'user':'友達',
         }
 
+class GroupNameForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = (
+            'name',
+        )
+        labels = {
+            'name':'グループ名',
+        }
+
 
 class PostsForm(forms.ModelForm):
     posts = forms.CharField(widget=forms.Textarea(attrs={'cols': '80', 'rows': '2'}))
