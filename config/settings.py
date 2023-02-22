@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 import environ
 from decouple import config
-from dj_database_url import parse as dburl
+import dj_database_url
 from dotenv import load_dotenv
 
 # envファイルを読み込み
@@ -91,10 +91,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-default_dburl = "sqlite:///" + str(BASE_DIR / "db.sqlite3")
 
 DATABASES = {
-    'default':config("DATABASE_URL",default=default_dburl,cast=dburl),
+    'default':dj_database_url.config(),
 }
 
 
