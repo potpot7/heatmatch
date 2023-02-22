@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}回答比較{% endblock %}
+{% block content %}
+
+<h2>あなたと回答が似ている他のユーザ</h2>
+
+{% if request.method == 'GET' %}
+<div class="text-center justify-content-center m-xl-5">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit">回答比較をする</button>
+    </form>
+</div>
+{% endif %}
+
+<div class="">
+    <h5>{{me.nickname}}　の回答結果</h5>
+    {% autoescape off %}
+    {{my_plot}}
+    {% endautoescape %}
+</div>
+
+{% if request.method == 'POST' %}
+
+<h3>{{title}}</h3>
+{% if you %}
+<div class="">
+    <h5>{{you.nickname}}</h5>
+    <a href="{% url 'otheranswer' you.id %}">詳細ページへ</a>
+    {% autoescape off %}
+    {{your_plot}}
+    {% endautoescape %}
+</div>
+{% endif %}
+
+{% endif %}
+{% endblock %}

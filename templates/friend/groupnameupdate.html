@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}グループ名称変更{% endblock %}
+{% block content %}
+
+{% if message %}
+<div class="messages alert alert-primary" role="alert">
+    {{message}}
+</div>
+{% endif %}
+
+<div class="card mb-3 mx-auto shadow" style="width: 480px; height: auto;">
+    <div class="card-body">
+        <form action=""  method="POST">
+            {% csrf_token %}
+            <div class="inline-group">
+                <input type="submit" name="send" class="btn btn-primary float-right mt-sm-0 mr-5" >
+                {{form.as_p}}
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}フレンド情報{% endblock %}
+{% block content %}
+
+<h3>{{room}}</h3>
+<hr>
+
+<table class="table ">
+  <tr class="table-active">
+    <td>
+      {% for m in messages %}
+      {% if m.user.id == request.user.id %}
+      <div class="clearfix">
+        <div class="card border-primary mb-3 float-right" style="max-width: 30rem;">
+          <div class="card-header">{{m.user.nickname}}</div>
+          <div class="card-body">
+            <p class="card-text">{{m.msg}}</p>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="clearfix">
+        <div class="card border-primary mb-3 float-left" style="max-width: 30rem;">
+          <div class="card-header">{{m.user.nickname}}</div>
+          <div class="card-body">
+            <p class="card-text">{{m.msg}}</p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </td>
+  </tr>
+</table>
+
+<form action="" method="POST">
+  <div class="input-group mb-3">
+  {% csrf_token %}
+    <input type="text" class="form-control" name="content" />
+    <button class="btn btn-primary" type="submit" name="send">送信</button>
+  </div>
+</form>
+{% if mes %}
+{{mes}}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}回答{% endblock %}
+{% block content %}
+<h2>あなたの回答結果</h2>
+
+{% if no_answer %}
+<p class="my-5 mx-4">{{no_answer}}</p>
+{% endif %}
+
+  {% autoescape off %}
+  {{plot_fig}}
+  {% endautoescape %}
+
+  <h3>回答履歴</h3>
+  <div class="form-group text-center ml-5 my-sm-0">
+    <label for="">←少ない　多い→</label>
+  </div>
+  {% for a in page_obj %}
+  {% ifchanged a.c_id %}
+    <p class="">カテゴリ：{{a.c_id.main_categ}} > {{a.c_id.sub_categ}} > {{a.c_id.contents_name}}</p>
+    <p class="small">回答日：{{a.create_date}}</p>
+  {% endifchanged %}
+  {# 質問文の設定 #}
+  <div class="form-row">
+    <div class="form-group col-sm-6 border-bottom">
+      <label for="text1">質問{{a.q_id.q_id}}:{{a.q_id.q_title}}</label>
+    </div>
+    {# ラジオボタンの設定 #}
+    <fieldset disabled="disabled">
+      <div class="form-check form-check-inline">
+        {% if a.a1 %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice1" checked/>
+        {% else %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice1"/>
+        {% endif %}
+      </div>
+      <div class="form-check form-check-inline">
+        {% if a.a2 %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice2" checked/>
+        {% else %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice2"/>
+        {% endif %}
+      </div>
+      <div class="form-check form-check-inline">
+        {% if a.a3 %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice3" checked/>
+        {% else %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice3"/>
+        {% endif %}
+      </div>
+      <div class="form-check form-check-inline">
+        {% if a.a4 %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice4" checked/>
+        {% else %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice4"/>
+        {% endif %}
+      </div>
+      <div class="form-check form-check-inline">
+        {% if a.a5 %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice5" checked/>
+        {% else %}
+        <input class="form-check-input" type="radio" name="{{a.a_id}}" id="choice5"/>
+        {% endif %}
+      </div>
+    </fieldset>
+  </div>
+  {% endfor %}
+
+  {% include 'pagination.html' %}
+
+  {% if no_answer %}
+  <p class="my-5 mx-4">{{no_answer}}</p>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}タイムライン{% endblock %}
+{% block content %}
+
+{% for p in posts %}
+<table class="table">
+  <tr>
+    <td>{{p.user}}</td>
+    {% if p.photo %}
+    <td><img src="{{p.photo.url}}" alt=""></td>
+    {% endif %}
+    <td>{{p.posts}}</td>
+    <td>{{p.create_date}}</td>
+  </tr>
+  </table>
+{% endfor %}
+
+<div class="form-inline">
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+    {{form.user}}
+    {{form.photo}}
+    {{form.posts}}
+    <button class="btn btn-primary" type="submit" name="send">送信</button>
+  </form>
+</div>
+
+{% endblock %}

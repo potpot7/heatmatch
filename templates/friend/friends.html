@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}フレンド情報{% endblock %}
+{% block content %}
+
+
+<P><a href="{% url 'group' %}">グループを作る</a></P>
+
+<table class="table table-hover table-striped">
+        <tr class="table-active">
+            <th style="width: 5%;"></th>
+            <th style="width: 20%;">グループ名</th>
+            <th style="width: 8%;"></th>
+            <th style="width: 8%;"></th>
+            <th style="width: 54%;">グループ名変更</th>
+        </tr>
+
+    {% for g in group %}
+    <tr>
+        <td>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-emoji-sunglasses bg-warning text-muted" viewBox="0 0 16 16" width="24px">
+            <path d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8H5a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z"/>
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z"/>
+          </svg>
+        </td>
+        
+        <td class="font-weight-bold"><a href="{% url 'message_group' g.room.id  %}">{{g.name}}</a></td>
+        <td></td>
+        <td></td>
+        <td><a href="{% url 'groupnameupdate' g.id %}">グループ名変更はこちら</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<table class="table table-hover table-striped">
+        <tr class="table-active">
+            <th style="width: 5%;"></th>
+            <th style="width: 20%;">相互フォロー</th>
+            <th style="width: 8%;">性別</th>
+            <th style="width: 8%;">年齢</th>
+            <th style="width: 54%;">詳細</th>
+        </tr>
+
+    {% for f in friends %}
+    <tr>
+        {% if f.followed.image %}
+        <td><img src="{{f.followed.image.url}}" alt="" width="24px"></td>
+        {% else %}
+        <td>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-emoji-sunglasses bg-warning text-muted" viewBox="0 0 16 16" width="24px">
+            <path d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8H5a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z"/>
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z"/>
+          </svg>
+        </td>
+        {% endif %}
+        
+        <td class="font-weight-bold"><a href="{% url 'message' f.follower.id f.followed.id  %}">{{f.followed.nickname}}</a></td>
+        <td>{{f.followed.gender}}</td>
+        <td>{{f.followed.age}}</td>
+        <td><a href="{% url 'otheranswer' f.followed.id %}">詳細ページ</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<table class="table table-hover table-striped">
+        <tr class="table-active">
+            <th style="width: 5%;"></th>
+            <th style="width: 20%;">フォロー中</th>
+            <th style="width: 8%;">性別</th>
+            <th style="width: 8%;">年齢</th>
+            <th style="width: 54%;">詳細</th>
+        </tr>
+
+    {% for f in follower %}
+    <tr>
+        {% if f.followed.image %}
+        <td><img src="{{f.followed.image.url}}" alt="" width="24px"></td>
+        {% else %}
+        <td>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-emoji-sunglasses bg-warning text-muted" viewBox="0 0 16 16" width="24px">
+            <path d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8H5a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z"/>
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z"/>
+          </svg>
+        </td>
+        {% endif %}
+        
+        <td class="font-weight-bold"><a href="#">{{f.followed.nickname}}</a></td>
+        <td>{{f.followed.gender}}</td>
+        <td>{{f.followed.age}}</td>
+        <td><a href="{% url 'otheranswer' f.followed.id %}">詳細ページ</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<table class="table table-hover table-striped">
+    <tr class="table-active">
+        <th style="width: 5%;"></th>
+        <th style="width: 20%;">フォロワー</th>
+        <th style="width: 8%;">性別</th>
+        <th style="width: 8%;">年齢</th>
+        <th style="width: 54%;">詳細</th>
+    </tr>
+
+{% for f in followed %}
+<tr>
+    {% if f.follower.image %}
+    <td><img src="{{f.follower.image.url}}" alt="" width="24px"></td>
+    {% else %}
+    <td>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-emoji-sunglasses bg-warning text-muted" viewBox="0 0 16 16" width="24px">
+        <path d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8H5a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z"/>
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z"/>
+      </svg>
+    </td>
+    {% endif %}
+    
+    <td class="font-weight-bold"><a href="#">{{f.follower.nickname}}</a></td>
+    <td class="">{{f.follower.gender}}</td>
+    <td class="">{{f.follower.age}}</td>
+    <td ><a href="{% url 'otheranswer' f.follower.id %}">詳細ページ</a></td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

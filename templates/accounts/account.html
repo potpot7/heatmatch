@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}アカウント{% endblock %}
+{% block content %}
+{% if messages %}
+<div class="messages alert alert-primary" role="alert">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+<div class="card mb-3 mx-auto shadow" style="width: 480px; height: auto;" >
+    <div class="card-header">
+        <h1>アカウント</h1>
+    </div>
+    <form action="" method="post" class="from-group">
+        {% csrf_token %}
+        <ul class="list-group">
+            <label class="list-group-item">{{ form.name.label }}:</label>
+            <li class="list-group-item">{{ form.name }}</li>
+            <label class="list-group-item">{{ form.birthday.label }}:</label>
+            <li class="list-group-item">{{ form.birthday }}</li>
+            <label class="list-group-item">{{ form.address.label }}:</label>
+            <li class="list-group-item">{{ form.address }}</li>
+            <label class="list-group-item">{{ form.tel.label }}:</label>
+            <li class="list-group-item">{{ form.tel }}</li>
+        </ul>
+        <div class="text-right m-3">
+            <p><input class="btn btn-primary" type="submit" value="更新"></p>
+        </div>
+    </form>
+</div>
+{% endblock %}

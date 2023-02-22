@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}回答{% endblock %}
+{% block content %}
+{% if user.image %}
+<h2>{{p.nickname|default:"Acici Name"}}　さんの回答結果</h2>
+<div class="text-center">
+<img class="" src="{{user.image.url}}" alt="no img" width="200px">
+</div>
+{% else %}
+<div class="text-center">
+<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-emoji-sunglasses bg-warning text-muted" viewBox="0 0 16 16" width="200px">
+    <path d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8H5a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z"/>
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z"/>
+</svg>
+</div>
+{% endif %}
+<form class="mx-5">
+    <fieldset disabled="disabled">
+    <label for="disabledTextInput">ニックネーム：</label>
+    <input type="text" id="disabledTextInput" class="form-control my-2" placeholder="{{user.nickname|default:"Acici Name"}}">
+    <div class="form-inline">
+        <label for="disabledTextInput">性別：</label>
+        <input type="text" id="disabledTextInput" class="form-control col-1 mx-2" placeholder="{{user.gender|default:""}}">
+        <label for="disabledTextInput">年齢：</label>
+        <input type="text" id="disabledTextInput" class="form-control col-1 mx-2" placeholder="{{user.age|default:""}}">
+    </div>
+    <label for="disabledTextInput">一言メッセージ：</label>
+    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{user.short_msg|default:"一言メッセージ"}}">
+        <label for="disabledTextInput">コメント:</label>
+        <textarea id="disabledTextInput" class="form-control" rows="3">{{user.comment}}</textarea>
+    </fieldset>
+</form>
+        <div class="text-muted small text-right">最終ログイン：{{user.user.last_login}}</div>
+{% autoescape off %}
+{{plot_fig}}
+{% endautoescape %}
+
+<!-- 未回答の時のメッセージ -->
+{% if no_answer %}
+<p class="my-5 mx-4">{{no_answer}}</p>
+{% endif %}
+
+<div class="row justify-content-center">
+    <div class="m-5">
+{% if fol_messages %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input class="btn btn-primary" type="submit" value="フォロー" name="follow" disabled>
+        <div class="messages alert alert-primary" role="alert">
+        {{fol_messages}}
+        </div>
+    </form>
+{% else %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input class="btn btn-primary" type="submit" value="フォロー" name="follow">
+        </form>
+    </div>
+{% endif %}
+    <div class="m-5">
+        {% if del_messages %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="フォロー解除" name="delete" disabled>
+        </form>
+        <div class="messages alert alert-danger" role="alert">
+            {{del_messages}}
+        </div>
+        {% else %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="フォロー解除" name="delete">
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

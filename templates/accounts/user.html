@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}ユーザ情報{% endblock %}
+{% block content %}
+    <h1>ユーザ情報</h1>
+    <h1>{{user.user.username}}</h1>
+    <p>ニックネーム：{{user.nickname}}</p>
+    <p>連絡先：{{user.user.email}}</p>
+    <p>アカウント作成日：{{user.user.date_joined}}</p>
+
+    <div class="text-justify">
+        <form action="{% url 'user' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ a_forms.as_p }}</p>
+            <p>{{ p_forms.as_p }}</p>
+            <p><input type="submit" value="アップロード"></p>
+        </form>
+    </div>
+    <p><a href="{% url 'index'%}">TOPに戻る</a></p>
+    <p><a href="{% url 'logout'%}">ログアウト</a></p>
+    {% endblock %}
