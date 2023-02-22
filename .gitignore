@@ -2,3 +2,5 @@
 /db.sqlite3
 requirements.txt
 settings.py
+build,sh
+render.yaml
