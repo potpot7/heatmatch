@@ -1,6 +1,4 @@
-config/
 /.env
 /db.sqlite3
-/manage.py
 static/
 requirements.txt
