@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+env=environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -160,3 +163,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 # GA_Tracking_ID
 GOOGLE_ANALYTICS_PROPERTY_ID = 'G-SG396MNCFE'
+
+SUPERUSER_EMAIL=env('a@a.jp')
+SUPERUSER_PASSWORD=env('aaaa0000')
