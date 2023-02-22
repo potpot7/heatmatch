@@ -3,3 +3,4 @@ config/
 /db.sqlite3
 /manage.py
 static/
+requirements.txt
