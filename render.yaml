@@ -13,7 +13,7 @@ services:
     buildCommand: './build.sh'
     startCommand: 'gunicorn mysite.wsgi:application'
     plan: free
-    branch: main
+    branch: master
     healthCheckPath: /
     envVars:
       - key: DATABASE_URL
