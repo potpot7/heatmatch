@@ -11,4 +11,3 @@ class Command(BaseCommand):
                 email=settings.SUPERUSER_EMAIL,
                 password=settings.SUPERUSER_PASSWORD,
             )
-            print('make_ok')

@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import environ
+from decouple import config
+from dj_database_url import parse as dburl
 from dotenv import load_dotenv
 
 # envファイルを読み込み
@@ -89,11 +91,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+default_dburl = "sqlite:///" + str(BASE_DIR / "db.sqlite3")
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default':config("DATABASE_URL",default=default_dburl,cast=dburl),
 }
 
 
@@ -161,3 +162,8 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2', #Googleログイン用
     'django.contrib.auth.backends.ModelBackend', #デフォルトバックエンド 必須
 ]
+
+
+SUPERUSER_NAME = env('SUPERUSER_NAME')
+SUPERUSER_EMAIL = env('SUPERUSER_EMAIL')
+SUPERUSER_PASSWORD = env('SUPERUSER_PASSWORD')
