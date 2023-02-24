@@ -145,7 +145,7 @@ STATIC_ROOT = 'https://heartmatch.onrender.com/static'
 STATICFILES_DIRS = [
     # BASE_DIR.joinpath('static'),
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, '/staticfiles/'),
+    # os.path.join(BASE_DIR, '/staticfiles/'),
 ]
 
 MEDIA_URL = '/media/'
